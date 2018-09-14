@@ -54,7 +54,6 @@ public class FindFileCache {
 		if (!file.isHidden() && ".MKV".equalsIgnoreCase(sub)
 				|| ".MP4".equalsIgnoreCase(sub)
 				|| ".WMV".equalsIgnoreCase(sub)
-				|| ".RMVB".equalsIgnoreCase(sub)
 				|| ".AVI".equalsIgnoreCase(sub)) {
 			check = true;
 		}
