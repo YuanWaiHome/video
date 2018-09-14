@@ -26,7 +26,7 @@ public class FindFileCache {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FindFileCache.class);
 
-	private static final String STR_PATH = "C:\\Users\\user\\Desktop\\video"; /* 初始資料夾位置 */
+	private static final String STR_PATH = "D:/M"; /* 初始資料夾位置 */
 	private static final boolean string2Html = false; /* 是否將menu格式從String轉成Html格式 */
 	/* Menu 起始文字 */
 	private static StringBuilder uhtml = null;
