@@ -211,7 +211,7 @@ public class videoController {
 			}
 			FindFileCache.reload(); /* 重新讀取menu */
 
-			/* 實作用戶類 */
+			/* 實作用戶類  */
 			// tb_resource resource = new tb_resource();
 
 			/* 取得談寫的相關訊息 */
