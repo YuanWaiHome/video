@@ -1,0 +1,13 @@
+server: 
+  port: 8082
+  servlet: 
+    context-path: /@project.artifactId@/
+  tomcat:
+    uri-encoding: UTF-8
+spring: 
+  thymeleaf: 
+    cache: false
+    prefix: classpath:/templates/
+  servlet:
+    multipart: 
+      enabled: true

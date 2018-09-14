@@ -1,0 +1,103 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Index</title>
+<link rel="icon" th:href="@{/icon/icon.png}">
+<link th:href="@{/css/nav.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/css/jquery.mmenu.all.css}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<style>
+.mm-listview {
+	font: inherit;
+	line-height: 40px
+}
+
+.mt {
+	margin: 15px
+}
+</style>
+</head>
+<body>
+	<!-- <th:block th:each="folderMap : ${folderAndFile}"> -->
+	<!-- <div  th:each="folderList : ${folderMap.key}" th:text="${folderList}"></div> -->
+	<!-- </th:block> -->
+
+
+	<div class="page mt">
+		<div class="header">
+			<a href="#menu" data-icon="grid"></a>
+			<nav id="menu" th:utext="${folderAndFile}"></nav>
+		</div>
+	</div>
+	<div class="container col-md-4 col-md-offset-2">
+		<div class="alert alert-danger" th:if="${not #lists.isEmpty(errors)}">
+			<strong>錯誤!</strong>
+			<p th:each="error:${errors}" th:text="${error}"></p>
+		</div>
+		<div class="alert alert-primary" th:if="${not #lists.isEmpty(successful)}">
+			<strong>成功!</strong>
+			<p th:each="success:${successful}" th:text="${success}"></p>
+		</div>
+
+		<div class="container col-md-8 col-md-offset-2">
+			<form action="update" method="post" enctype="multipart/form-data">
+				<div class="container col-md-4 col-md-offset-2">
+					<input type="file" name="file" />
+					<br>
+					<button class="container btn btn-primary mt" type="submit" id="updateBtn">上傳</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script th:src="@{/script/jquery.mmenu.all.js}"></script>
+	<script type="text/javascript" src="http://malsup.github.io/jquery.blockUI.js"></script>
+	<script th:inline="javascript">
+		$(function() {
+			 $("nav#menu").mmenu({
+		         "extensions": [
+		            "position-bottom"
+		         ],
+		         "autoHeight": true
+		      });
+		 
+			 $("#updateBtn").on("click",function () {
+	                $.blockUI({
+	                    message: '<h3>影片處理中...</h3>' 
+	                });
+//	                3秒後，解除BlockUI
+// 	                setTimeout(function () {
+// 	                    $.unblockUI(); 
+// 	                }, 3000);
+	            });
+		});
+		
+		<!-- 進資料夾 -->
+		$(".folderName").on("click",function(){
+			submitFunction($(this),"fn")
+		})
+		<!-- 進檔案 -->
+		$(".fileName").on("click",function(){
+			submitFunction($(this),"v")
+		})
+		
+		function submitFunction(element,name){
+			var param= element.data("param")
+			var input = $('<input/>')
+			           input.attr({
+			                "name" : name,
+			                "type" : "hidden"
+			           }).val(param)
+			 var form = $('<form></form>')
+			           form.attr({
+			                "action" : [[@{/view}]] ,
+			                "method" : "post"
+			           })
+			           form.append(input)
+			           form.appendTo($("html"))
+			           form.submit()
+		}
+	</script>
+</body>
+</html>
