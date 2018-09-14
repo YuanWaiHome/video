@@ -50,11 +50,12 @@ public class FindFileCache {
 	 */
 	public static boolean fileExtension(File file) {
 		boolean check = false;
-		if (!file.isHidden() && ".MKV".equalsIgnoreCase(file.getName())
-				|| ".MP4".equalsIgnoreCase(file.getName())
-				|| ".WMV".equalsIgnoreCase(file.getName())
-				|| ".RMVB".equalsIgnoreCase(file.getName())
-				|| ".AVI".equalsIgnoreCase(file.getName())) {
+		String sub = file.getName().substring(file.getName().length()-4,file.getName().length());
+		if (!file.isHidden() && ".MKV".equalsIgnoreCase(sub)
+				|| ".MP4".equalsIgnoreCase(sub)
+				|| ".WMV".equalsIgnoreCase(sub)
+				|| ".RMVB".equalsIgnoreCase(sub)
+				|| ".AVI".equalsIgnoreCase(sub)) {
 			check = true;
 		}
 
