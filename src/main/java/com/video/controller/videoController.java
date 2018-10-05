@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,9 +52,9 @@ public class videoController {
 	 * @return
 	 */
 	@RequestMapping(REQUEST_INDEX)
-	public String goIndex(HttpServletRequest request) {
+	public String goIndex(Model model) {
 		String finalHtml = FindFileCache.getFinalHtml();
-		request.setAttribute(ATTR_INDEXlIST, finalHtml);
+		model.addAttribute(ATTR_INDEXlIST, finalHtml);
 		return RESPONSE_INDEX;
 	}
 
@@ -65,8 +66,8 @@ public class videoController {
 	 * @return
 	 */
 	@RequestMapping(REQUEST_FOLDER)
-	public String forward(@RequestParam(required = false, value = "v") String fileName, HttpServletRequest request) {
-		request.setAttribute(ATTR_FILENAME, fileName);
+	public String forward(@RequestParam(required = false, value = "v") String fileName, Model model) {
+		model.addAttribute(ATTR_FILENAME, fileName);
 		return RESPONSE_VIDEO;
 	}
 
@@ -92,7 +93,7 @@ public class videoController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(@RequestParam("file") CommonsMultipartFile file, HttpServletRequest req,
-			HttpServletRequest request) throws Exception {
+			Model model) throws Exception {
 		System.out.println("進入addVideo影片上傳Controller");
 
 		if (file.getSize() != 0) {
@@ -170,10 +171,10 @@ public class videoController {
 					ConverVideoTest c = new ConverVideoTest();
 					c.run(yuanPATH); /* 使用轉檔 */
 					System.out.println("===================所有解析度完成轉檔=======================");
-					request.setAttribute("successful", new ArrayList<>(Arrays.asList("轉檔完成")));
+					model.addAttribute("successful", new ArrayList<>(Arrays.asList("轉檔完成")));
 				}
 			} catch (ConvertedException e) {
-				request.setAttribute("errors", new ArrayList<>(Arrays.asList("轉檔編碼不支援，轉檔發生錯誤")));
+				model.addAttribute("errors", new ArrayList<>(Arrays.asList("轉檔編碼不支援，轉檔發生錯誤")));
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -251,6 +252,6 @@ public class videoController {
 			// subclass);
 			// }
 		}
-		return goIndex(request);
+		return goIndex(model);
 	}
 }

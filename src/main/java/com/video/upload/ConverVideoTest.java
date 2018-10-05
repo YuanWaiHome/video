@@ -29,7 +29,6 @@ public class ConverVideoTest {
 
 			List<String> resolutionList = getResolution(yuanPATH);
 			/* 開始轉檔 */
-			int i = 0;
 			for (String resolution : resolutionList) {
 				String filePath = yuanPATH; /* web端傳入的影片 */
 				System.out.println("ConverVideoTest 回傳傳入的影片為:" + filePath);
